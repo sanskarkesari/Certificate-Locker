@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+</head>
+<body>
+    <main class="container">
+        <h2>Welcome to Your Dashboard</h2>
+        <a href="{{ url_for('upload') }}" class="btn">Upload New Certificate</a>
+        <h3>Your Certificates</h3>
+        
+        <div class="certificate-grid">
+            {% for certificate in certificates %}
+            <div class="certificate-card">
+                <!-- Thumbnail for Images / Icon for PDFs -->
+                {% if certificate[3].split('.')[-1] in ['png', 'jpg', 'jpeg'] %}
+                    <img 
+                        src="{{ certificate[3] }}" 
+                        alt="{{ certificate[2] }}" 
+                        class="certificate-thumbnail"
+                        onclick="openModal('{{ certificate[3] }}')"
+                    >
+                {% else %}
+                    <div class="file-icon" onclick="openModal('{{ certificate[3] }}')">
+                        📄
+                    </div>
+                {% endif %}
+                
+                <div class="certificate-details">
+                    <h4>{{ certificate[2] }}</h4>
+                    <small>Uploaded at: {{ certificate[4] }}</small>
+                    <div class="actions">
+                        <a href="{{ certificate[3] }}" target="_blank" class="btn">View</a>
+                        <a href="{{ certificate[3] }}" download class="btn">Download</a>
+                    </div>
+                </div>
+            </div>
+            {% else %}
+            <p>No certificates uploaded yet.</p>
+            {% endfor %}
+        </div>
+
+        <!-- Modal for Zoomed View -->
+        <div id="modal" class="modal" onclick="closeModal()">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <img id="modal-image" class="modal-content">
+            <iframe id="modal-pdf" class="modal-content" style="display: none;"></iframe>
+        </div>
+
+        <a href="{{ url_for('logout') }}" class="btn">Logout</a>
+    </main>
+
+    <script>
+        function openModal(fileUrl) {
+            const modal = document.getElementById('modal');
+            const modalImage = document.getElementById('modal-image');
+            const modalPdf = document.getElementById('modal-pdf');
+            
+            if (fileUrl.includes('.pdf')) {
+                modalPdf.style.display = 'block';
+                modalImage.style.display = 'none';
+                modalPdf.src = `https://docs.google.com/viewer?url=${fileUrl}&embedded=true`;
+            } else {
+                modalImage.style.display = 'block';
+                modalPdf.style.display = 'none';
+                modalImage.src = fileUrl;
+            }
+            
+            modal.style.display = 'block';
+        }
+
+        function closeModal() {
+            document.getElementById('modal').style.display = 'none';
+        }
+    </script>
+</body>
+</html>

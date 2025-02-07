@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Certificates</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/upload.css') }}">
+</head>
+<body>
+    <main class="container">
+        <h2>Upload Certificates</h2>
+        <form id="uploadForm" action="{{ url_for('upload') }}" method="POST" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="certificateName">Certificate Name:</label>
+                <input type="text" id="certificateName" name="certificateName" required placeholder="Enter certificate name">
+            </div>
+            <div class="form-group">
+                <label for="certificateFile">Upload Certificate:</label>
+                <input type="file" id="certificateFile" name="certificateFile" accept=".pdf,.png,.jpeg,.jpg" required>
+                <small>Allowed formats: PDF, PNG, JPEG. Max size: 5MB.</small>
+            </div>
+            <button type="submit">Upload</button>
+            <p id="error" class="error-message">
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        {% for category, message in messages %}
+                            <span class="{{ category }}">{{ message }}</span>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+            </p>
+        </form>
+    </main>
+    
+</body>
+</html>

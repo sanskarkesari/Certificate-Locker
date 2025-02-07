@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/user.css') }}">
+</head>
+<body>
+    <main class="container">
+        <h2>Login</h2>
+        <form id="loginForm" action="{{ url_for('login') }}" method="POST">
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required placeholder="Enter your email">
+            </div>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required placeholder="Enter your password">
+            </div>
+            <button type="submit">Login</button>
+            <p id="error" class="error-message">
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        {% for category, message in messages %}
+                            <span class="{{ category }}">{{ message }}</span>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+            </p>
+            <div class="links">
+                <a href="#">Forgot Password?</a>
+                <a href="{{ url_for('signup') }}">Don't have an account? Sign Up</a>
+            </div>
+        </form>
+    </main>
+    <script src="{{ url_for('static', filename='js/user.js') }}"></script>
+</body>
+</html>
