@@ -1,16 +1,27 @@
+import os
 from flask import Flask, render_template, request, redirect, url_for, flash, session
 import sqlite3
-import os
 import bcrypt
 import firebase_admin
 from firebase_admin import credentials, storage
+from dotenv import load_dotenv
+
+load_dotenv()  # Load environment variables from .env file
+firebase_key_path = os.getenv("GOOGLE_APPLICATION_CREDENTIALS")
+
+if not firebase_key_path or not os.path.exists(firebase_key_path):
+    raise FileNotFoundError(f"Firebase credentials file not found at {firebase_key_path}")
+
 
 app = Flask(__name__)
 app.secret_key = 'your_secret_key'
 
-cred = credentials.Certificate("firebase-key.json")
+# Load Firebase credentials securely
+
+
+cred = credentials.Certificate(firebase_key_path)
 firebase_admin.initialize_app(cred, {
-    'storageBucket':'certificatelocker-a8584.firebasestorage.app'  # Replace with your bucket name
+    'storageBucket': 'certificatelocker-a8584.appspot.com'  # Ensure this is your correct bucket name
 })
 
 # Configuration for file uploads

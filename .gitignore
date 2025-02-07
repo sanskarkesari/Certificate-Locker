@@ -1,1 +1,12 @@
+# Ignore Firebase credentials
 firebase-key.json
+
+# Ignore Python cache
+__pycache__/
+*.pyc
+
+# Ignore uploaded files
+uploads/
+
+# Ignore environment variables
+.env
