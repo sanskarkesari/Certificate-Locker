@@ -26,8 +26,6 @@ A web application that allows users to securely store and manage their certifica
 [Upload Page](![Screenshot from 2025-02-09 22-51-09](https://github.com/user-attachments/assets/207f5a96-74c8-4dc0-a805-c4b263b20aa6)
 
 
-## Setup Instructions
-
 ### Prerequisites
 - Python 3.7+
 - Firebase account (for cloud storage)
