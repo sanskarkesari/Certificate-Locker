@@ -1,4 +1,4 @@
-# Certificate Storage App
+# Certificate Locker 
 
 A web application that allows users to securely store and manage their certificates in the cloud. Users can log in, upload certificates (PDF, PNG, JPEG), view, download, and delete them from their dashboard.
 
@@ -30,8 +30,3 @@ A web application that allows users to securely store and manage their certifica
 - Python 3.7+
 - Firebase account (for cloud storage)
 - Git 
-
-### Step 1: Clone the Repository
-```bash
-git clone https://github.com/sanskar_kesari/certificate-storage-app.git
-cd certificate-storage-app
